@@ -6,7 +6,7 @@ To run this program in your terminal, please use the command:
 
 This command will use g++ to compile the project and create an a.out file for you. 
 
-You may use the command " ls " to list the files and you should see an a,out file in the folder now. 
+You may use the command " ls " to list the files and you should see an a.out file in the folder now. 
 
 Finally, to run the program us the following command: 
 
