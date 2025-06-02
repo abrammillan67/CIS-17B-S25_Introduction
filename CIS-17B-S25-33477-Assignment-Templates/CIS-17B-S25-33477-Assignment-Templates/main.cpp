@@ -74,27 +74,28 @@ void shipItem(const double& item) {
 int main() {
     
     
-    Package<int> package(5);
+    Package<int> package(5); //creating a Package<int>
     package.label();
     
-    Package<std::string> stringPac("C++ Primer");
-    stringPac.label();
+    Package<std::string> stringPac("C++ Primer"); //creating a Package<std::string>
+    stringPac.label();  //calling label()
     
-    Package<double*> *pointerPac = nullptr;
-    pointerPac->label();
+    Package<double*> *pointerPac = nullptr; //creating a Package<double*>
+    pointerPac->label();    //calling label()
     
-    Box<std::string, 3> box;
+    Box<std::string, 3> box; //creating Box<std::string, 3> and adding three books
     
     box.addItem("Dune");
-    box.addItem("Doom");
-    box.addItem("The Last of Us");
+    box.addItem("Dracula");
+    box.addItem("Moby Dick");
     box.printItems();
     
     std:: string emptyString;
     
+    //calling shipItem() on an int, a std::string, and a double
     shipItem(5);
     shipItem(emptyString);
-    shipItem(10.00);
+    shipItem(10.50);
     
     return 0;
 }
