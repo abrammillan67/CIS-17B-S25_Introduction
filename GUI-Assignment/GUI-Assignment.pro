@@ -12,18 +12,24 @@ SOURCES += \
     StorageManager.cpp \
     StoredItem.cpp \
     additemform.cpp \
+    finditemform.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    removeitemform.cpp
 
 HEADERS += \
     StorageManager.h \
     StoredItem.h \
     additemform.h \
-    mainwindow.h
+    finditemform.h \
+    mainwindow.h \
+    removeitemform.h
 
 FORMS += \
     additemform.ui \
-    mainwindow.ui
+    finditemform.ui \
+    mainwindow.ui \
+    removeitemform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

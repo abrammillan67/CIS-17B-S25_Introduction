@@ -55,16 +55,24 @@ OBJECTS_DIR   = ./
 SOURCES       = ../../StorageManager.cpp \
 		../../StoredItem.cpp \
 		../../additemform.cpp \
+		../../finditemform.cpp \
 		../../main.cpp \
-		../../mainwindow.cpp moc_additemform.cpp \
-		moc_mainwindow.cpp
+		../../mainwindow.cpp \
+		../../removeitemform.cpp moc_additemform.cpp \
+		moc_finditemform.cpp \
+		moc_mainwindow.cpp \
+		moc_removeitemform.cpp
 OBJECTS       = StorageManager.o \
 		StoredItem.o \
 		additemform.o \
+		finditemform.o \
 		main.o \
 		mainwindow.o \
+		removeitemform.o \
 		moc_additemform.o \
-		moc_mainwindow.o
+		moc_finditemform.o \
+		moc_mainwindow.o \
+		moc_removeitemform.o
 DIST          = /Users/abramsmac/Qt/6.9.1/macos/mkspecs/features/spec_pre.prf \
 		/Users/abramsmac/Qt/6.9.1/macos/mkspecs/features/device_config.prf \
 		/Users/abramsmac/Qt/6.9.1/macos/mkspecs/common/unix.conf \
@@ -316,11 +324,15 @@ DIST          = /Users/abramsmac/Qt/6.9.1/macos/mkspecs/features/spec_pre.prf \
 		../../../../GUI-Assignment.pro ../../StorageManager.h \
 		../../StoredItem.h \
 		../../additemform.h \
-		../../mainwindow.h ../../StorageManager.cpp \
+		../../finditemform.h \
+		../../mainwindow.h \
+		../../removeitemform.h ../../StorageManager.cpp \
 		../../StoredItem.cpp \
 		../../additemform.cpp \
+		../../finditemform.cpp \
 		../../main.cpp \
-		../../mainwindow.cpp
+		../../mainwindow.cpp \
+		../../removeitemform.cpp
 QMAKE_TARGET  = GUI-Assignment
 DESTDIR       = 
 TARGET        = GUI-Assignment.app/Contents/MacOS/GUI-Assignment
@@ -341,7 +353,7 @@ include /Users/abramsmac/Qt/6.9.1/macos/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-GUI-Assignment.app/Contents/MacOS/GUI-Assignment: ui_additemform.h ui_mainwindow.h $(OBJECTS)  
+GUI-Assignment.app/Contents/MacOS/GUI-Assignment: ui_additemform.h ui_finditemform.h ui_mainwindow.h ui_removeitemform.h $(OBJECTS)  
 	@test -d GUI-Assignment.app/Contents/MacOS/ || mkdir -p GUI-Assignment.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -874,9 +886,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../StorageManager.h ../../StoredItem.h ../../additemform.h ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../StorageManager.cpp ../../StoredItem.cpp ../../additemform.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../additemform.ui ../../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../StorageManager.h ../../StoredItem.h ../../additemform.h ../../finditemform.h ../../mainwindow.h ../../removeitemform.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../StorageManager.cpp ../../StoredItem.cpp ../../additemform.cpp ../../finditemform.cpp ../../main.cpp ../../mainwindow.cpp ../../removeitemform.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../additemform.ui ../../finditemform.ui ../../mainwindow.ui ../../removeitemform.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -905,35 +917,59 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_additemform.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_additemform.cpp moc_finditemform.cpp moc_mainwindow.cpp moc_removeitemform.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_additemform.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_additemform.cpp moc_finditemform.cpp moc_mainwindow.cpp moc_removeitemform.cpp
 moc_additemform.cpp: ../../additemform.h \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../StorageManager.h \
+		../../StoredItem.h \
 		/Users/abramsmac/Qt/6.9.1/macos/libexec/moc
 	/Users/abramsmac/Qt/6.9.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/abramsmac/Qt/6.9.1/macos/mkspecs/macx-clang -I/Users/abramsmac/CIS-17C/CIS-17B-S25_Introduction/GUI-Assignment -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtGui.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/abramsmac/Qt/6.9.1/macos/lib ../../additemform.h -o moc_additemform.cpp
+
+moc_finditemform.cpp: ../../finditemform.h \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/abramsmac/Qt/6.9.1/macos/libexec/moc
+	/Users/abramsmac/Qt/6.9.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/abramsmac/Qt/6.9.1/macos/mkspecs/macx-clang -I/Users/abramsmac/CIS-17C/CIS-17B-S25_Introduction/GUI-Assignment -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtGui.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/abramsmac/Qt/6.9.1/macos/lib ../../finditemform.h -o moc_finditemform.cpp
 
 moc_mainwindow.cpp: ../../mainwindow.h \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../StorageManager.h \
+		../../StoredItem.h \
 		/Users/abramsmac/Qt/6.9.1/macos/libexec/moc
 	/Users/abramsmac/Qt/6.9.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/abramsmac/Qt/6.9.1/macos/mkspecs/macx-clang -I/Users/abramsmac/CIS-17C/CIS-17B-S25_Introduction/GUI-Assignment -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtGui.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/abramsmac/Qt/6.9.1/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
+
+moc_removeitemform.cpp: ../../removeitemform.h \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/abramsmac/Qt/6.9.1/macos/libexec/moc
+	/Users/abramsmac/Qt/6.9.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/abramsmac/Qt/6.9.1/macos/mkspecs/macx-clang -I/Users/abramsmac/CIS-17C/CIS-17B-S25_Introduction/GUI-Assignment -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtGui.framework/Headers -I/Users/abramsmac/Qt/6.9.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/abramsmac/Qt/6.9.1/macos/lib ../../removeitemform.h -o moc_removeitemform.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_additemform.h ui_mainwindow.h
+compiler_uic_make_all: ui_additemform.h ui_finditemform.h ui_mainwindow.h ui_removeitemform.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_additemform.h ui_mainwindow.h
+	-$(DEL_FILE) ui_additemform.h ui_finditemform.h ui_mainwindow.h ui_removeitemform.h
 ui_additemform.h: ../../additemform.ui \
 		/Users/abramsmac/Qt/6.9.1/macos/libexec/uic
 	/Users/abramsmac/Qt/6.9.1/macos/libexec/uic ../../additemform.ui -o ui_additemform.h
 
+ui_finditemform.h: ../../finditemform.ui \
+		/Users/abramsmac/Qt/6.9.1/macos/libexec/uic
+	/Users/abramsmac/Qt/6.9.1/macos/libexec/uic ../../finditemform.ui -o ui_finditemform.h
+
 ui_mainwindow.h: ../../mainwindow.ui \
 		/Users/abramsmac/Qt/6.9.1/macos/libexec/uic
 	/Users/abramsmac/Qt/6.9.1/macos/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
+
+ui_removeitemform.h: ../../removeitemform.ui \
+		/Users/abramsmac/Qt/6.9.1/macos/libexec/uic
+	/Users/abramsmac/Qt/6.9.1/macos/libexec/uic ../../removeitemform.ui -o ui_removeitemform.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -957,32 +993,56 @@ StoredItem.o: ../../StoredItem.cpp ../../StoredItem.h
 additemform.o: ../../additemform.cpp ../../additemform.h \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../StorageManager.h \
+		../../StoredItem.h \
 		ui_additemform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o additemform.o ../../additemform.cpp
+
+finditemform.o: ../../finditemform.cpp ../../finditemform.h \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		ui_finditemform.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o finditemform.o ../../finditemform.cpp
 
 main.o: ../../main.cpp ../../mainwindow.h \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QApplication \
-		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qapplication.h \
 		../../StorageManager.h \
-		../../StoredItem.h
+		../../StoredItem.h \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QApplication \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../StorageManager.h \
+		../../StoredItem.h \
 		ui_mainwindow.h \
-		../../additemForm.h \
+		../../additemform.h \
 		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
-		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../finditemform.h \
+		../../removeitemform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
+
+removeitemform.o: ../../removeitemform.cpp ../../removeitemform.h \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		/Users/abramsmac/Qt/6.9.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		ui_removeitemform.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o removeitemform.o ../../removeitemform.cpp
 
 moc_additemform.o: moc_additemform.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_additemform.o moc_additemform.cpp
 
+moc_finditemform.o: moc_finditemform.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_finditemform.o moc_finditemform.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_removeitemform.o: moc_removeitemform.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_removeitemform.o moc_removeitemform.cpp
 
 ####### Install
 

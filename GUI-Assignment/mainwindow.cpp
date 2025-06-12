@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "additemform.h"
+#include "finditemform.h"
+#include "removeitemform.h"
 #include "StorageManager.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -26,13 +28,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_FindItemBtn_clicked()
 {
-
+    findItemForm* findForm = new findItemForm(this);
+    findForm->show();
 }
 
 
 void MainWindow::on_RemoveItemBtn_clicked()
 {
-
+    removeItemForm* removeForm = new removeItemForm(this);
+    removeForm->show();
 }
 
 

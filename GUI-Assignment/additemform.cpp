@@ -27,8 +27,8 @@ void AddItemForm::on_buttonBox_accepted()
 {
 
     shared_ptr<StoredItem> item = make_shared<StoredItem>(ui->idTextBox->text().toStdString(), ui->descTextBox->text().toStdString(), ui->locTextBox->text().toStdString() );
-   // connect(this, &AddItemForm::finished, this) {
-      //  emit datavailable(item);
+   //connect(this, &AddItemForm::finished, this) {
+      //emit datavailable(item);
     //}
 }
 
